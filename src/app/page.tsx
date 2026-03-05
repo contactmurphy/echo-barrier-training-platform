@@ -20,12 +20,14 @@ export default async function DashboardPage() {
     <div style={{ minHeight: '100vh', backgroundColor: '#ffffff' }}>
       {/* Header */}
       <header
+        className="dashboard-header"
         style={{
           display: 'flex',
           alignItems: 'flex-start',
           justifyContent: 'space-between',
           padding: '20px 40px',
           borderBottom: '1px solid #f0f0f0',
+          flexWrap: 'wrap' as const,
         }}
       >
         <div style={{ marginTop: '15px' }}>
@@ -73,6 +75,7 @@ export default async function DashboardPage() {
 
       {/* Body */}
       <div
+        className="dashboard-body"
         style={{
           paddingTop: '40px',
           paddingLeft: '40px',
@@ -110,6 +113,20 @@ export default async function DashboardPage() {
           .dashboard-row > div {
             width: 100% !important;
             min-width: 0 !important;
+          }
+          .dashboard-header {
+            padding: 16px !important;
+            flex-wrap: wrap;
+            gap: 12px;
+          }
+          .dashboard-header > div:first-child {
+            margin-top: 0 !important;
+          }
+          .dashboard-header > div:last-child {
+            margin-top: 0 !important;
+          }
+          .dashboard-body {
+            padding: 20px 16px !important;
           }
         }
       `}</style>
