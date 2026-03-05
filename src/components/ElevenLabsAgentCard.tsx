@@ -13,9 +13,6 @@ export default function ElevenLabsAgentCard({ userEmail }: ElevenLabsAgentCardPr
   const [error, setError] = useState<string | null>(null)
 
   const conversation = useConversation({
-    onConnect: () => {
-      conversation.sendContextualUpdate(`The user's email address is: ${userEmail}`)
-    },
     onError: (err) => {
       setError(typeof err === 'string' ? err : 'Connection error')
       setIsLoading(false)
@@ -37,7 +34,11 @@ export default function ElevenLabsAgentCard({ userEmail }: ElevenLabsAgentCardPr
       const res = await fetch('/api/elevenlabs-token')
       if (!res.ok) throw new Error('Failed to get session token')
       const { signedUrl } = await res.json()
-      await conversation.startSession({ signedUrl, connectionType: 'websocket' })
+      await conversation.startSession({
+        signedUrl,
+        connectionType: 'websocket',
+        dynamicVariables: { hubspot_email: userEmail },
+      })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to start conversation')
     } finally {
